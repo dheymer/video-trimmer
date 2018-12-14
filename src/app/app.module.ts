@@ -5,9 +5,9 @@ import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { MainContentComponent } from './main-content/main-content.component';
 import { FooterComponent } from './footer/footer.component';
-import { VideoPlayerComponent } from './main-content/video-player/video-player.component';
 import { PlaylistComponent } from './main-content/playlist/playlist.component';
 import { ClipManagerComponent } from './main-content/clip-manager/clip-manager.component';
+import { VideoRepositoryService } from './video-repository.service';
 
 @NgModule({
   declarations: [
@@ -15,14 +15,13 @@ import { ClipManagerComponent } from './main-content/clip-manager/clip-manager.c
     NavMenuComponent,
     MainContentComponent,
     FooterComponent,
-    VideoPlayerComponent,
     PlaylistComponent,
     ClipManagerComponent
   ],
   imports: [
     BrowserModule
   ],
-  providers: [],
+  providers: [VideoRepositoryService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
