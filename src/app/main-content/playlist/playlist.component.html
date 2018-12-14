@@ -1,0 +1,47 @@
+
+  <p>
+    Filter by tag <input placeholder="Try 'a', 'b' and 'c'" ng-model="tagName">
+    (<em>New tags can be added and modified.</em>)
+  </p>
+  <ul class="movie-clips">
+    <li ng-class="{ current: selected == 'full' }">
+      <span ng-hide="editFull" class="text-strong">{{ movieName }}.</span>
+      <span ng-show="editFull"><input type="text" ng-model="movieName"></span><br>
+      <span>Duration: {{dRounded}}s. / exact: {{duration}}s.</span>
+      <span class="float-right">
+        <button ng-click="editFull = !editFull" ng-hide="editFull">Edit</button>
+        <button ng-click="editFull = !editFull" ng-show="editFull">Save</button>
+        <button ng-click="playVideoFragment(-1, -1, movieName, 'full')">Play</button>
+      </span>
+    </li>
+    <li class="container" ng-repeat="(key, item) in list | filter: { tag: tagName }" ng-class="{ current: selected == $index }">
+      <span ng-hide="edit">
+        <span class="text-pale">{{ $index }}.</span> {{ item.name }}.
+        Start: <strong>{{ item.start }}</strong>s.
+        End: <strong>{{ item.end }}</strong>s.
+        Tag: <em>{{ item.tag }}</em>
+      </span>
+      <span class="float-right">
+        <button ng-click="edit = !edit" ng-hide="edit">Edit</button>
+        <button ng-click="edit = !edit" ng-show="edit">Save</button>
+        <button ng-click="playVideoFragment(item.start,item.end,item.name,$index);">Play</button>
+        <button ng-click="removeItem(key)">Delete</button>
+      </span>
+      <dl class="edit-inputs" ng-show="edit">
+        <dt>Clip name:</dt>
+        <dd><input ng-model="item.name"></dd>
+        <dt>Tag:</dt>
+        <dd><input ng-model="item.tag"></dd>
+        <dt>Time span:</dt>
+        <dd>
+          Start: <input type="number" max="{{dRounded}}" min="0" ng-model="item.start">
+          End: <input type="number" max="{{dRounded}}" min="{{item.start || 0}}" ng-model="item.end">
+          (<em>seconds</em>)
+        </dd>
+      </dl>
+    </li>
+  </ul>
+  <p class="float-right">
+    <button ng-click="playAllFragments()">Play All</button>
+  </p>
+

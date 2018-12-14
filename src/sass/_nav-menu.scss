@@ -1,0 +1,18 @@
+.navbar, .footer{
+  height: 12.5vh;
+  background-image: url('http://dheymer.000webhostapp.com/img/body-bg.png');
+  background-position: center;
+  background-repeat: repeat;
+  color:white;
+  padding: 1rem;
+}
+
+.navbar{
+  ul.nav-list{
+    display: flex;
+    li.nav-item{
+      list-style-type: none;
+      margin-right: 2rem;
+    }
+  }
+}

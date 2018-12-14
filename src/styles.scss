@@ -1,0 +1,18 @@
+/* You can add global styles to this file, and also import other style files */
+
+*{
+  box-sizing: border-box;
+}
+
+body{
+  font-family: 'Ubuntu', sans-serif;
+  .row{
+    margin: 1rem 0rem;
+  }
+}
+
+@import "sass/variables";
+@import "sass/common";
+@import "sass/nav-menu";
+@import "sass/main-content";
+@import "sass/footer";
