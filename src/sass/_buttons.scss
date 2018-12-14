@@ -1,0 +1,13 @@
+.btn{
+  border-radius:50%;
+  color:white;
+  &.btn-edit{
+    background-color: $default-text;
+  }
+  &.btn-play{
+    background-color: $title-text;
+  }
+  &.btn-delete{
+    background-color: $red-btn;
+  }
+}
