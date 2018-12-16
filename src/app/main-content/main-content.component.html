@@ -4,7 +4,7 @@
   <div class="col-sm-5 playlist">
     <!-- Search filter by tags -->
     <p>
-      Search by tag <input placeholder="Try 'intro', 'trailer' and 'movie'" [(ngModel)]="this.searchTag">
+      Search by tag <input placeholder="Try 'intro', 'trailer' and 'movie'" [(ngModel)]="this.searchTag" (keyup)="this.filterClipsByTag(this.searchTag)">
     </p>
     <!-- Playlist -->
     <table class="movie-clips">
@@ -28,7 +28,7 @@
         <td>
           <button class="btn btn-edit" (click)="editFull = !editFull" [hidden]="editFull"><i class="fas fa-edit"></i></button>
           <button class="btn btn-play" (click)="editFull = !editFull" [hidden]="!editFull"><i class="fas fa-save"></i></button>
-          <button class="btn btn-play" (click)="playVideoFragment(-1, -1, movieName, 'full')"><i class="fas fa-play"></i></button>
+          <button class="btn btn-play" (click)="playClip(this.fullVideo, -1)"><i class="fas fa-play"></i></button>
         </td>
       </tr>
       <tr><td colspan="5"><hr></td></tr>
@@ -53,67 +53,29 @@
           <input class="list-input" [hidden]="!this.editClip || this.selectedClipIndex != i" [(ngModel)]="item.searchTag">
         </td>
         <td>
-          <button class="btn btn-edit" (click)="this.editClip = !this.editClip" [hidden]="this.editClip && this.selectedClipIndex == i"><i class="fas fa-edit"></i></button>
-          <button class="btn btn-play" (click)="this.editClip = !this.editClip" [hidden]="!this.editClip || this.selectedClipIndex != i"><i class="fas fa-save"></i></button>
+          <button class="btn btn-edit" (click)="this.editClip = !this.editClip; this.selectedClipIndex = i" [hidden]="this.editClip && this.selectedClipIndex == i"><i class="fas fa-edit"></i></button>
+          <button class="btn btn-play" (click)="this.editClip = !this.editClip; this.selectedClipIndex = undefined" [hidden]="!this.editClip || this.selectedClipIndex != i"><i class="fas fa-save"></i></button>
           <button class="btn btn-play" (click)="this.playClip(item, i);"><i class="fas fa-play"></i></button>
           <button class="btn btn-delete" (click)="this.removeClip(i)"><i class="fas fa-times"></i></button>
         </td>
       </tr>
-    </table><!--
-    <ul class="movie-clips">
-      
-      <li ng-class="{ current: selected == 'full' }">
-        <span [hidden]="editFull" class="text-strong">{{ this.objVideo.videoName }}.</span>
-        <span [hidden]="!editFull"><input type="text" [(ngModel)]="this.objVideo.videoName"></span><br>
-        <span>Duration: {{this.objVideo.videoDuration}}s.</span>
-        <span class="float-right">
-          <button class="btn btn-edit" (click)="editFull = !editFull" [hidden]="editFull"><i class="fas fa-edit"></i></button>
-          <button class="btn btn-play" (click)="editFull = !editFull" [hidden]="!editFull"><i class="fas fa-save"></i></button>
-          <button class="btn btn-play" (click)="playVideoFragment(-1, -1, movieName, 'full')"><i class="fas fa-play"></i></button>
-        </span>
-      </li>
-      --><!--
-      <li class="container" *ngFor="let item of this.filteredClips; let i=index" [ngClass]="{'current': this.selectedClipIndex == i}">
-        <span ng-hide="edit">
-          <span class="text-pale">{{ i }}.</span> {{ item.clipName }}.
-          Start: <strong>{{ item.startTime }}</strong>s.
-          End: <strong>{{ item.endTime }}</strong>s.
-          Tag: <em>{{ item.searchTag }}</em>
-        </span>
-        <span class="float-right">
-          <button class="btn btn-edit" (click)="this.editClip = !this.editClip" [hidden]="this.editClip"><i class="fas fa-edit"></i></button>
-          <button class="btn btn-play" (click)="this.editClip = !this.editClip" [hidden]="!this.editClip"><i class="fas fa-save"></i></button>
-          <button class="btn btn-play" (click)="this.playClip(item, i);"><i class="fas fa-play"></i></button>
-          <button class="btn btn-delete" (click)="this.removeItem(key)"><i class="fas fa-times"></i></button>
-        </span>
-        
-        <dl class="edit-inputs" [hidden]="!edit">
-          <dt>Clip name:</dt>
-          <dd><input [(ngModel)]="item.clipName"></dd>
-          <dt>Tag:</dt>
-          <dd><input [(ngModel)]="item.searchTag"></dd>
-          <dt>Time span:</dt>
-          <dd>
-            Start: <input type="number" max="{{this.objVideo.videoRoundedDuration}}" min="0" [(ngModel)]="item.startTime">
-            End: <input type="number" max="{{this.objVideo.videoRoundedDuration}}" min="{{item.starTime || 0}}" [(ng-model)]="item.endTime">
-            (<em>seconds</em>)
-          </dd>
-        </dl>
-        
-      </li>
-    </ul>-->
+    </table>
+
     <!-- Play all clips button -->
     <p class="float-right">
       <button class="btn btn-play" (click)="playAllClips()"><i class="fas fa-film"></i></button>
     </p>
   </div>
+
   <!-- Video player -->
   <div class="col-sm-7 player">
-    <video controls id="videoPlayer" >
+    <b>Playing:</b> {{this.selectedClip.clipName}}
+    <video controls id="videoPlayer" preload="auto">
       <source id="videoPlayerSource" src="http://grochtdreis.de/fuer-jsfiddle/video/sintel_trailer-480.mp4" type="video/mp4">
     </video>
   </div>
 </div>
+
 <!-- Clip manager -->
 <div class="row clip-manager">
   <table>
@@ -145,19 +107,4 @@
       </td>
     </tr>
   </table>
-<!--
-  <h4>New video clip</h4>
-    <p>
-      Name: <input placeholder="Video clip name" ng-model="name">
-    </p>
-    <p>
-      Tag: <input placeholder="Tag" ng-model="tag">
-    </p>
-    <p>
-      Start: <input type="number" placeholder="0-{{dRounded}}" max="{{dRounded}}" min="0" ng-model="start"> s.
-      End: <input type="number" placeholder="{{start || 0}}-{{dRounded}}" max="{{dRounded}}" min="{{start || 0}}" ng-model="end"> s.
-    </p>
-    <p>
-      <button ng-click="addItem({name: name, tag: tag, start: start, end: end })">Add New</button>
-    </p>-->
 </div>

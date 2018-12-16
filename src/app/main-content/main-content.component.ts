@@ -18,6 +18,8 @@ export class MainContentComponent implements OnInit {
   editClip: false;
   editVideo: false;
   searchTag: string;
+  fullVideo: Clip = new Clip('Complete movie', '', -1, -1);
+  clipSection = '';
 
   constructor(
     private videoService: VideoRepositoryService
@@ -38,23 +40,27 @@ export class MainContentComponent implements OnInit {
       );
     });
     console.log(this.newClip);
+    this.selectedClip = this.fullVideo;
   }
 
   playClip(clip: Clip, clipIndex: number) {
     this.selectedClipIndex = clipIndex;
     this.selectedClip = clip;
+    const stopAfter = (clip.endTime - clip.startTime) * 1000;
     if (clip.startTime !== -1 && clip.endTime !== -1) {
-      const clipSection = '#t' + clip.startTime + ',' + clip.endTime;
-      this.videoDomContainer.src = this.objVideo.videoUrl + clipSection;
+      this.videoDomContainer.currentTime = clip.startTime;
     } else {
-      this.videoDomContainer.src = this.objVideo.videoUrl;
+      // this.videoDomContainer.src = this.objVideo.videoUrl;
+      this.clipSection = '';
     }
-    this.videoDomContainer.load();
     this.videoDomContainer.play();
+    setTimeout(() => {
+      this.videoDomContainer.pause();
+    }, stopAfter);
   }
 
   playClipTimeout(clip: Clip, clipIndex: number) {
-    return window.setTimeout(this.playClip(clip, clipIndex), 3000);
+    setTimeout(this.playClip(clip, clipIndex), 3000);
   }
 
   playAllClips() {
@@ -66,9 +72,11 @@ export class MainContentComponent implements OnInit {
 
     this.videoDomContainer.addEventListener('pause', function() {
       if (i < clipCount) {
-        self.selectedClip.clipName = 'Timeout 3s';
         currentClip = self.filteredClips[++i];
-        self.playClipTimeout(currentClip, i);
+        // self.playClipTimeout(currentClip, i);
+        setTimeout(() => {
+          self.playClip(currentClip, i);
+        } , 3000);
       }
     }, false);
     this.playClip(currentClip, i);
@@ -81,6 +89,11 @@ export class MainContentComponent implements OnInit {
   addClip(clip: Clip) {
     console.log(clip);
     this.videoService.addClip(clip);
+  }
+
+  filterClipsByTag(tag: string) {
+    this.filteredClips = this.clips;
+    this.filteredClips = this.clips.filter((clip) => clip.searchTag.toLowerCase().indexOf(tag.toLowerCase()) > -1);
   }
 
 }
