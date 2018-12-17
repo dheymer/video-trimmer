@@ -1,3 +1,23 @@
 .main-content{
   min-height: 80vh;
+  .movie-clips{
+    .current{
+      background-color: $edit-row;
+    }
+  }
+  .player{
+    .loader{
+      background-image: url(./assets/770.gif);
+      background-position: center;
+      background-repeat: no-repeat;
+      min-width: 4rem;
+      min-height: 4rem;
+      position: absolute;
+      top: 10rem;
+      left: 25rem;
+      &.hide{
+        display: none;
+      }
+    }
+  }
 }

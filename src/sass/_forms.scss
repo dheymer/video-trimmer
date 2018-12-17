@@ -1,0 +1,13 @@
+input{
+    border: 1px solid $title-text;
+    font-size: 0.8rem;
+    border-radius:5px;
+
+    &.list-input{
+        width: 5rem;
+    }
+
+    &.add-input{
+        width: 8rem;
+    }
+}

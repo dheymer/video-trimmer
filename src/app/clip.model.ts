@@ -16,10 +16,10 @@ export class Clip {
     startTime?: number,
     endTime?: number
   ) {
-    this.clipName = clipName;
-    this.searchTag = searchTag;
-    this.startTime = startTime;
-    this.endTime = endTime;
+    this.clipName = (clipName === undefined) ? '' : clipName;
+    this.searchTag = (searchTag === undefined) ? '' : searchTag;
+    this.startTime = (startTime === undefined) ? 0 : startTime;
+    this.endTime = (endTime === undefined) ? 0 : endTime;
   }
 
 }

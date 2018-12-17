@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { MainContentComponent } from './main-content/main-content.component';
@@ -19,7 +19,8 @@ import { VideoRepositoryService } from './video-repository.service';
     ClipManagerComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule
   ],
   providers: [VideoRepositoryService],
   bootstrap: [AppComponent]
