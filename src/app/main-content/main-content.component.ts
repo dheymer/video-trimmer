@@ -22,8 +22,8 @@ export class MainContentComponent implements OnInit {
   selectedClip: Clip;                                       // The selected clip
   newClip: Clip = new Clip();                               // The new clip to be created
   selectedClipIndex: number;                                // The index of the selected clip
-  editClip: false;                                          // Flag that indicates if a clip is being edited
-  editVideo: false;                                         // Flag that indicates if the Full video is being edited
+  editClip = false;                                          // Flag that indicates if a clip is being edited
+  editVideo = false;                                         // Flag that indicates if the Full video is being edited
   searchTag: string;                                        // The search term used to filter clips by tag
   fullVideo: Clip = new Clip('Complete movie', '', -1, -1); // The Clip object of the complete video
 
