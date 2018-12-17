@@ -14,7 +14,11 @@ import { Clip } from './clip.model';
 export class VideoRepositoryService {
   clips: Clip[] = [];                   // The clips list
 
-  constructor() {
+  /**
+   * Creates an instance of VideoRepositoryService.
+   * @memberof VideoRepositoryService
+   */
+  constructor(  ) {
     // The dummy data with the example clips
     this.clips = [
       new Clip('Video 1', 'intro', 0, 10.4),
