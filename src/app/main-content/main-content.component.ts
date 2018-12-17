@@ -215,4 +215,15 @@ export class MainContentComponent implements OnInit {
     this.filteredClips = this.clips.filter((clip) => clip.searchTag.toLowerCase().indexOf(tag.toLowerCase()) > -1);
   }
 
+  /**
+   * Obtains the left position of the clip marker in the markers bar
+   *
+   * @param {Clip} item
+   * @returns {string}
+   * @memberof MainContentComponent
+   */
+  calculateMarkerLeft(item: Clip): string {
+    return ((item.startTime / this.videoDomContainer.duration) * 100) + '%';
+  }
+
 }

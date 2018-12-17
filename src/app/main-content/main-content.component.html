@@ -74,6 +74,14 @@
       <source id="videoPlayerSource" src="http://grochtdreis.de/fuer-jsfiddle/video/sintel_trailer-480.mp4" type="video/mp4">
     </video>
     <div class="loader hide" id="loader"></div>
+    <div class="markers-bar">
+      <!--
+
+      -->
+      <div class="marker" (click)="this.playClip(this.filteredClips[1], 1)"
+        [ngStyle]="{'left': this.calculateMarkerLeft(this.filteredClips[1])}" >
+      </div>
+    </div>
   </div>
 </div>
 
