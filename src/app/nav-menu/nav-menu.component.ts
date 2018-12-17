@@ -1,3 +1,4 @@
+// 14-12-2018  Dheymer león (dheymer@gmail.com)
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 
 /**

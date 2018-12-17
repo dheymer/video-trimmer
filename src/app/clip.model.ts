@@ -1,3 +1,4 @@
+// 14-12-2018  Dheymer León (dheymer@gmail.com)
 /**
  * Model with the Clip's info structure
  *
