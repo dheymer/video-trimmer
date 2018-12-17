@@ -1,6 +1,6 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<app-nav-menu></app-nav-menu>
+<app-nav-menu (mode)="this.toggleMode($event)"></app-nav-menu>
 <div class="row main-content">
-  <app-main-content></app-main-content>
+  <app-main-content [mode]="this.fullView"></app-main-content>
 </div>
 <app-footer></app-footer>

@@ -5,8 +5,6 @@ import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { MainContentComponent } from './main-content/main-content.component';
 import { FooterComponent } from './footer/footer.component';
-import { PlaylistComponent } from './main-content/playlist/playlist.component';
-import { ClipManagerComponent } from './main-content/clip-manager/clip-manager.component';
 import { VideoRepositoryService } from './video-repository.service';
 
 @NgModule({
@@ -14,9 +12,7 @@ import { VideoRepositoryService } from './video-repository.service';
     AppComponent,
     NavMenuComponent,
     MainContentComponent,
-    FooterComponent,
-    PlaylistComponent,
-    ClipManagerComponent
+    FooterComponent
   ],
   imports: [
     BrowserModule,

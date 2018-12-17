@@ -1,5 +1,5 @@
 /**
- * Model with the structure of the Clips info
+ * Model with the Clip's info structure
  *
  * @export
  * @class Clip
@@ -24,6 +24,12 @@ export class Clip {
 
 }
 
+/**
+ * Model with the Video's info structure
+ *
+ * @export
+ * @class Video
+ */
 export class Video {
   videoName: string;
   videoUrl: string;
