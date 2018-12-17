@@ -59,10 +59,6 @@ export class MainContentComponent implements OnInit {
     }, stopAfter);
   }
 
-  playClipTimeout(clip: Clip, clipIndex: number) {
-    setTimeout(this.playClip(clip, clipIndex), 3000);
-  }
-
   playAllClips() {
     // tslint:disable-next-line:prefer-const
     let self = this;
