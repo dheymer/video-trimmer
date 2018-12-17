@@ -1,3 +1,4 @@
+// 14-12-2018  Dheymer León (dheymer@gmail.com)
 import { Injectable } from '@angular/core';
 import { Clip } from './clip.model';
 

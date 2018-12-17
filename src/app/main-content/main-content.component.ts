@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+// 14-12-2018  Dheymer León (dheymer@gmail.com)
+import { Component, OnInit, Input, HostListener } from '@angular/core';
 import { Video, Clip } from '../clip.model';
 import { VideoRepositoryService } from '../video-repository.service';
 
@@ -15,6 +16,7 @@ import { VideoRepositoryService } from '../video-repository.service';
 })
 export class MainContentComponent implements OnInit {
   @Input ('mode') mode: boolean;                            // Flag that indicates if it's Full mode or Demo mode
+  @HostListener('window:keydown', ['$event'])               // To listen if the hotkeys are pressed
   videoDomContainer: HTMLVideoElement;                      // The HTML video player element
   objVideo: Video;                                          // The object with the Full video's info
   clips: Clip[] = [];                                       // The array with the info of all clips
@@ -60,8 +62,9 @@ export class MainContentComponent implements OnInit {
         Math.round(self.videoDomContainer.duration)
       );
     });
-    // Assign the clip of the whole video to the selected clip
+    // Assign the clip of the whole video to the selected clip, and it's index as well
     this.selectedClip = this.fullVideo;
+    this.selectedClipIndex = -1;
   }
 
   /**
@@ -77,12 +80,14 @@ export class MainContentComponent implements OnInit {
     // Assign the clip to be played to the selected clip object
     this.selectedClip = clip;
     // Set the stop time for the clip
-    const stopAfter = (clip.endTime - clip.startTime) * 1000;
+    let stopAfter = (clip.endTime - clip.startTime) * 1000;
     // if it isn't the full video
     if (clip.startTime !== -1 && clip.endTime !== -1) {
       // Set the starting time of the clip in the HTML video element
       this.videoDomContainer.currentTime = clip.startTime;
     } else {
+      // Reset the stop time for the clip to the duration of the whole video
+      stopAfter = this.videoDomContainer.duration * 1000;
       // Otherwise, set the starting time to 0 (the beginning of the video)
       this.videoDomContainer.currentTime = 0;
     }
@@ -134,6 +139,56 @@ export class MainContentComponent implements OnInit {
   removeClip(clipIndex: number) {
     // Ask to the service to remove the clip
     this.videoService.deleteClip(clipIndex);
+  }
+
+  /**
+   * Navigates through the clip list with keyboard keys (left and right arrows)
+   *
+   * @param {KeyboardEvent} event The keyboard event
+   * @memberof MainContentComponent
+   */
+  hotKeyPressed(event: KeyboardEvent) {
+    // Set a provisional index
+    let playIndex: number;
+    // set a new empty Clip object
+    let playClip = new Clip();
+    // if the pressed key is Left Arrow
+    if (event.key === 'ArrowLeft') {
+      // set the provisional index to the current selected index - 1
+      playIndex = this.selectedClipIndex - 1;
+    }
+    // if the pressed key is the Right Arrow
+    if (event.key === 'ArrowRight') {
+      // set the provisional index to the current selected index +1
+      playIndex = this.selectedClipIndex + 1;
+    }
+    // Check the number in the provisional index
+    switch (playIndex) {
+      // if it's -2 (previous to the full video index)
+      case -2: {
+          // Set the index to the one of the last clip in the clip list, and select that clip
+          playIndex = this.filteredClips.length - 1;
+          playClip = this.filteredClips[playIndex];
+        } break;
+      // if it's -1 (previous to the first clip in the clip list)
+      case -1: {
+          // select the clip object of the complete video
+          playClip = this.fullVideo;
+        } break;
+      // if it's the length of the clip list (the next to the last video)
+      case (this.filteredClips.length): {
+          // set the index to -1 (the complete video), and select it's clip object
+          playIndex = -1;
+          playClip = this.fullVideo;
+        } break;
+      // if it's an index inside the clip list
+      default: {
+          // select the corresponding clip in the list
+          playClip = this.filteredClips[playIndex];
+        } break;
+    }
+    // play the selected clip in the selected index
+    this.playClip(playClip, playIndex);
   }
 
   /**

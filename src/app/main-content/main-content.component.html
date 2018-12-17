@@ -1,5 +1,5 @@
 
-<div class="row player-playlist">
+<div class="row player-playlist" (window:keydown)="this.hotKeyPressed($event)">
   <!-- Playlist section -->
   <div class="col-sm-5 playlist">
     <!-- Search filter by tags -->

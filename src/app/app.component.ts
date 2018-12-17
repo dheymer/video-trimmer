@@ -1,3 +1,4 @@
+// 13-12-2018  Dheymer león (dheymer@gmail.com)
 import { Component } from '@angular/core';
 /**
  * The app component
