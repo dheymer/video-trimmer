@@ -16,6 +16,7 @@
         <th>Tag</th>
         <th>Actions</th>
       </tr>
+      <!-- Complete video data -->
       <tr [ngClass]="{'current': this.selectedClipIndex == -1}">
         <td></td>
         <td>
@@ -25,6 +26,7 @@
         <td class="text-strong">Duration:</td>
         <td>{{this.objVideo.videoDuration}}s.</td>
         <td></td>
+        <!-- complete video operations button -->
         <td>
           <button *ngIf="this.mode" class="btn btn-edit" (click)="editVideo = !editVideo" [hidden]="editVideo"><i class="fas fa-edit"></i></button>
           <button class="btn btn-play" (click)="editVideo = !editVideo" [hidden]="!editVideo"><i class="fas fa-save"></i></button>
@@ -32,6 +34,7 @@
         </td>
       </tr>
       <tr><td colspan="5"><hr></td></tr>
+      <!-- Clip list -->
       <tr *ngFor="let item of this.filteredClips; let i=index" [ngClass]="{'current': this.selectedClipIndex == i}">
         <td>
           <span class="text-pale">{{ i+1 }}.</span>
@@ -52,6 +55,7 @@
           <em [hidden]="this.editClip && this.selectedClipIndex == i">{{ item.searchTag }}</em>
           <input class="list-input" [hidden]="!this.editClip || this.selectedClipIndex != i" [(ngModel)]="item.searchTag">
         </td>
+        <!-- Clip operations buttons -->
         <td>
           <button *ngIf="this.mode" class="btn btn-edit" (click)="this.editClip = !this.editClip; this.selectedClipIndex = i" [hidden]="this.editClip && this.selectedClipIndex == i"><i class="fas fa-edit"></i></button>
           <button class="btn btn-play" (click)="this.editClip = !this.editClip; this.selectedClipIndex = undefined" [hidden]="!this.editClip || this.selectedClipIndex != i"><i class="fas fa-save"></i></button>
@@ -59,12 +63,19 @@
           <button *ngIf="this.mode" class="btn btn-delete" (click)="this.removeClip(i)"><i class="fas fa-times"></i></button>
         </td>
       </tr>
+      <tr>
+        <td colspan="6"><hr></td>
+      </tr>
+      <tr>
+        <td colspan="5"></td>
+        <!-- Play all clips button -->
+        <td>
+          <p class="float-right">
+            <button class="btn btn-play" (click)="playAllClips()"><i class="fas fa-film"></i></button>
+          </p>
+        </td>
+      </tr>
     </table>
-
-    <!-- Play all clips button -->
-    <p class="float-right">
-      <button class="btn btn-play" (click)="playAllClips()"><i class="fas fa-film"></i></button>
-    </p>
   </div>
 
   <!-- Video player -->
@@ -73,13 +84,10 @@
     <video controls id="videoPlayer" preload="auto">
       <source id="videoPlayerSource" src="http://grochtdreis.de/fuer-jsfiddle/video/sintel_trailer-480.mp4" type="video/mp4">
     </video>
-    <div class="loader hide" id="loader"></div>
+    <!-- Navigation markers bar -->
     <div class="markers-bar">
-      <!--
-
-      -->
-      <div class="marker" (click)="this.playClip(this.filteredClips[1], 1)"
-        [ngStyle]="{'left': this.calculateMarkerLeft(this.filteredClips[1])}" >
+      <div *ngFor="let item of this.clips; let i=index" class="marker" (click)="this.playClip(this.clips[i], i)"
+        [ngStyle]="{'left': this.calculateMarkerLeft(this.clips[i])}" >
       </div>
     </div>
   </div>

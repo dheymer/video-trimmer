@@ -152,43 +152,46 @@ export class MainContentComponent implements OnInit {
     let playIndex: number;
     // set a new empty Clip object
     let playClip = new Clip();
-    // if the pressed key is Left Arrow
-    if (event.key === 'ArrowLeft') {
-      // set the provisional index to the current selected index - 1
-      playIndex = this.selectedClipIndex - 1;
+    // if the pressed key is Left or Right Arrow
+    if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+      // if the pressed key is Left Arrow
+      if (event.key === 'ArrowLeft') {
+        // set the provisional index to the current selected index - 1
+        playIndex = this.selectedClipIndex - 1;
+      }
+      // if the pressed key is the Right Arrow
+      if (event.key === 'ArrowRight') {
+        // set the provisional index to the current selected index +1
+        playIndex = this.selectedClipIndex + 1;
+      }
+      // Check the number in the provisional index
+      switch (playIndex) {
+        // if it's -2 (previous to the full video index)
+        case -2: {
+            // Set the index to the one of the last clip in the clip list, and select that clip
+            playIndex = this.filteredClips.length - 1;
+            playClip = this.filteredClips[playIndex];
+          } break;
+        // if it's -1 (previous to the first clip in the clip list)
+        case -1: {
+            // select the clip object of the complete video
+            playClip = this.fullVideo;
+          } break;
+        // if it's the length of the clip list (the next to the last video)
+        case (this.filteredClips.length): {
+            // set the index to -1 (the complete video), and select it's clip object
+            playIndex = -1;
+            playClip = this.fullVideo;
+          } break;
+        // if it's an index inside the clip list
+        default: {
+            // select the corresponding clip in the list
+            playClip = this.filteredClips[playIndex];
+          } break;
+      }
+      // play the selected clip in the selected index
+      this.playClip(playClip, playIndex);
     }
-    // if the pressed key is the Right Arrow
-    if (event.key === 'ArrowRight') {
-      // set the provisional index to the current selected index +1
-      playIndex = this.selectedClipIndex + 1;
-    }
-    // Check the number in the provisional index
-    switch (playIndex) {
-      // if it's -2 (previous to the full video index)
-      case -2: {
-          // Set the index to the one of the last clip in the clip list, and select that clip
-          playIndex = this.filteredClips.length - 1;
-          playClip = this.filteredClips[playIndex];
-        } break;
-      // if it's -1 (previous to the first clip in the clip list)
-      case -1: {
-          // select the clip object of the complete video
-          playClip = this.fullVideo;
-        } break;
-      // if it's the length of the clip list (the next to the last video)
-      case (this.filteredClips.length): {
-          // set the index to -1 (the complete video), and select it's clip object
-          playIndex = -1;
-          playClip = this.fullVideo;
-        } break;
-      // if it's an index inside the clip list
-      default: {
-          // select the corresponding clip in the list
-          playClip = this.filteredClips[playIndex];
-        } break;
-    }
-    // play the selected clip in the selected index
-    this.playClip(playClip, playIndex);
   }
 
   /**
