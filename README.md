@@ -29,8 +29,8 @@ Create an application that allows a user to slice up a [video sample] (http://gr
 - [x] The ability to save clips for persistent use. **\[ Added Save button (disquette icon and green background) when editing clips \]**
 - [x] The ability to add arbitrary 'tags' to clips so that they can be filtered by the tag name. **\[ Added tag attribute to each clip (it's possible to edit them in the edit mode), and a search input to filter clips by those tags \]**
 - [x] Hotkeys to jump between the current clip and next and previous clips (if there are any). **\[ Added left and right arrow keys to navigate along the clip list and the complete video \]**
-- [ ] Markers on the video player timeline that denote where a clip starts (full video only).
-- [ ] Clicking the marker chooses that clip and plays it from that point.
+- [x] Markers on the video player timeline that denote where a clip starts (full video only). **\[ Added a green timeline bar right under video player, with dark round markers \]**
+- [x] Clicking the marker chooses that clip and plays it from that point. **\[ Added play clip functionality on the click event of the markers \]**
 - [x] The ability to reuse the the player and playlist on another page without the editing capabilities. **\[ Added Full mode (all features) and Demo mode (play clips only). Upper right corner links. \]**
 
 ## Dev environment setup

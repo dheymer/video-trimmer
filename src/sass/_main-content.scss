@@ -26,8 +26,9 @@
     background-color: $title-text;
     overflow: visible;
     .marker{
-      height: 0.6rem;
-      width: 0.25rem;
+      height: 0.65rem;
+      width: 0.55rem;
+      border-radius: 40%;
       margin-top: -1px;
       background-color: $default-text;
       position: absolute;
