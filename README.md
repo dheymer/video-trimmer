@@ -14,9 +14,9 @@ Create an application that allows a user to slice up a [video sample] (http://gr
 - [ ] AureliaJS
 
 ### Mandatory Features
-- [x] An HTML5 video player that utilizes media fragments.
-- [x] A list of clips to be played in the video player.
-- [x] The first item in the list should be the full video.
+- [x] An HTML5 video player that utilizes media fragments. **\[ The video player is located in the right section of the screen \]**
+- [x] A list of clips to be played in the video player. **\[ The clip list is in the left section of the screen \]**
+- [x] The first item in the list should be the full video. **\[ In fact, the first item of the list is the complete video \]**
 - [x] An interface to add new clips to the list by specifying a name, start time, and end time. **\[ Added at the bottom of the screen, before footer section \]**
 - [x] The ability to delete clips from the list (*excluding the full video item*). **\[ Added Delete button (with red background) \]**
 - [x] The ability to edit existing clips in the list. **\[ Added Edit button in each clip (with dark background) \]**
