@@ -2,7 +2,7 @@
 
 Video Trimmer is a web app made in Angular 6+ that allows a user to slice-up a video into clips.This app has been tested in Chrome, Firefox and Edge.
 
-Demo page: [https://dheymerleonwebtest.000webhostapp.com/demos/VideoTrimmer/] 
+Demo page: [https://dheymer.000webhostapp.com/demos/VideoTrimmer/] 
 
 ### Task
 Create an application that allows a user to slice up a [video sample] (http://grochtdreis.de/fuer-jsfiddle/video/sintel_trailer-480.mp4) into clips. As part of this application, use at least one of the following frameworks to facilitate development however you may also use any other tools to help complete the project:
